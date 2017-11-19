@@ -98,7 +98,7 @@ public class NewGame extends JComponent implements ActionListener, Runnable, Mou
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode()==KeyEvent.VK_UP) {
-			floor.setRect(x, y+=1, 100, 100);
+			floor.setRect(x+=5, y+=10, 100, 100);
 			System.out.println("whee");
 			
 		}
