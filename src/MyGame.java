@@ -14,10 +14,10 @@ import javax.swing.Timer;
 
 public class MyGame extends JComponent implements ActionListener, Runnable, KeyListener{
 		private int acceleration=5;
-		private boolean pressedUp;
-		private boolean pressedDown;
-		private boolean pressedRight;
-		private boolean pressedLeft;
+		private boolean pressedUp=false;
+		private boolean pressedDown=false;
+		private boolean pressedRight=false;
+		private boolean pressedLeft=false;
 		private int x=900;
 	    private int y=810;
 	    private int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -36,7 +36,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    public void run()
 	    {
 	    		mainGameWindow.addKeyListener(this);
-	        mainGameWindow.setTitle("MyGame");
+	        mainGameWindow.setTitle("Riddle Pig");
 	        mainGameWindow.setSize(widthOfScreen, heightOfScreen);
 	        mainGameWindow.add(this);//Adds the paint method
 	        mainGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +58,20 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
+	    if(pressedUp==true) {
+	   jump(); 	
+	   floor.setRect(x, y, 50, 50);
 	    	
+	    }
+	    if(pressedDown==true) {
+	    	floor.setRect(x, y+=5, 50, 50);
+	    }
+	    if(pressedLeft==true) {
+	    	floor.setRect(x-=5, y, 50, 50);
+	    }
+	    if(pressedRight==true) {
+	    	floor.setRect(x+=5, y, 50, 50);
+	    }
 				
 	    	
 	    		//System.out.println(x+" "+y);
@@ -77,35 +90,48 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		public void keyPressed(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
-				if(pressedUp==true) {
-					floor.setRect(x, y-=5, 50, 50);
-					System.out.println("um");
-				}
-				else if(pressedUp==false){
-					floor.setRect(x, y, 50, 50);
-				}
+				pressedUp=true;
+				
+			
+		}
+			if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+				pressedLeft=true;
 				
 				
-				
-				//System.out.println("whee");
 			}
-			else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
-				if(pressedDown==true)
-				floor.setRect(x-=5, y, 50, 50 );
-				System.out.println("beep");
+			if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				pressedRight=true;
 			}
-			else if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
-				floor.setRect(x+=5, y, 50, 50 );
-				System.out.println("bleep");
-			}
-			else {
-				floor.setRect(x, y+=5, 50, 50 );
+			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
+				pressedDown=true;
 			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
-			
-		}
+			if(e.getKeyCode()==KeyEvent.VK_UP) {
+					
+				
+					
+			}
+			if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+				pressedLeft=false;
+					
+				}
+			if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+				pressedRight=false;
+			}
+			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
+				pressedDown=false;
+			}
+	}
+void jump() {
+	y-=acceleration;
+	acceleration--;
+	if(acceleration==-5) {
+		acceleration=5;
+		pressedUp=false;
+	}
+}
 }
