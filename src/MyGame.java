@@ -13,19 +13,21 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class MyGame extends JComponent implements ActionListener, Runnable, KeyListener{
-		private int acceleration=5;
+		private int acceleration=20;
 		private boolean pressedUp=false;
 		private boolean pressedDown=false;
 		private boolean pressedRight=false;
 		private boolean pressedLeft=false;
 		private int x=900;
 	    private int y=810;
+	    private int platformX=1000;
+	    private int platformY=670;
 	    private int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    private int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
 	    private Rectangle2D.Double floor = new Rectangle2D.Double(x, y, 50, 50);
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
-	    
+	    private Rectangle2D.Double platform=new Rectangle2D.Double(platformX, platformY, 100, 25);
 
 		
 	    public static void main(String[] args)
@@ -51,7 +53,11 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	        g2.fill(floor);
 	        g2.setColor(Color.red);
 	        g2.draw(floor);
-	        
+	        Graphics2D g3=(Graphics2D)g;
+	        g3.setColor(Color.yellow);
+	        g3.fill(platform);
+	        g2.setColor(Color.ORANGE);
+	        g2.draw(platform);
 	        
 	    }
 
@@ -60,19 +66,19 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    {
 	    if(pressedUp==true) {
 	   jump(); 	
-	   floor.setRect(x, y, 50, 50);
+	   
 	    	
 	    }
 	    if(pressedDown==true) {
-	    	floor.setRect(x, y+=5, 50, 50);
+	    	y+=5;
 	    }
 	    if(pressedLeft==true) {
-	    	floor.setRect(x-=5, y, 50, 50);
+	    x-=5;
 	    }
 	    if(pressedRight==true) {
-	    	floor.setRect(x+=5, y, 50, 50);
+	    	x+=5;
 	    }
-				
+			floor.setRect(x, y, 50, 50);	
 	    	
 	    		//System.out.println(x+" "+y);
 	    	//	floor.setRect(x+=1, y+=5, 100, 100);
@@ -129,8 +135,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 void jump() {
 	y-=acceleration;
 	acceleration--;
-	if(acceleration==-5) {
-		acceleration=5;
+	if(acceleration==-21) {
+		acceleration=20;
 		pressedUp=false;
 	}
 }
