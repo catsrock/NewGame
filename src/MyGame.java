@@ -20,14 +20,19 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		private boolean pressedLeft=false;
 		private int x=900;
 	    private int y=810;
-	    private int platformX=1000;
-	    private int platformY=670;
+	    static final int WIDTH=500;
+	    static final int HEIGHT=800;
+	    final int MENU_STATE = 0;
+		final int GAME_STATE = 1;
+		final int END_STATE = 2;
+		int currentState = MENU_STATE;
+		Platform p1;
 	    private int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    private int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
 	    private Rectangle2D.Double floor = new Rectangle2D.Double(x, y, 50, 50);
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
-	    private Rectangle2D.Double platform=new Rectangle2D.Double(platformX, platformY, 100, 25);
+	    ObjectManager manager=new ObjectManager();
 
 		
 	    public static void main(String[] args)
@@ -53,13 +58,75 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	        g2.fill(floor);
 	        g2.setColor(Color.red);
 	        g2.draw(floor);
-	        Graphics2D g3=(Graphics2D)g;
-	        g3.setColor(Color.yellow);
-	        g3.fill(platform);
-	        g2.setColor(Color.ORANGE);
-	        g2.draw(platform);
+	        
 	        
 	    }
+	    public void paintComponent(Graphics g) {
+			if (currentState == MENU_STATE) {
+				drawMenuState(g);
+			} else if (currentState == GAME_STATE) {
+				drawGameState(g);
+			} else if (currentState == END_STATE) {
+				drawEndState(g);
+			}
+
+		}
+	    public void updateMenuState() {
+
+		}
+
+		public void updateGameState() {
+			manager.update();
+			//manager.manageEnemies();
+			//manager.checkCollision();
+			if (p1.touchPlatform == false) {
+				currentState = END_STATE;
+				manager.reset();
+				p1 = new Platform(250, 700, 50, 50);
+				manager.addPlatform(p1);
+			}
+		}
+		public void updateEndState() {
+
+		}
+
+		public void drawMenuState(Graphics g) {
+			//manager.setScore(MENU_STATE);
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
+			//g.setFont(titleFont);
+			g.setColor(Color.yellow);
+			g.drawString("RIDDLE PIG", 25, 200);
+
+			//g.setFont(startFont);
+			g.drawString("Press ENTER to start", 125, 300);
+
+			//g.setFont(instructionFont);
+			g.drawString("Press SPACE for instructions", 100, 400);
+
+		}
+
+		public void drawGameState(Graphics g) {
+			g.setColor(Color.black);
+			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
+			manager.draw(g);
+		}
+
+		public void drawEndState(Graphics g) {
+			g.setColor(Color.red);
+			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
+		//	g.setFont(gameOverFont);
+			g.setColor(Color.BLACK);
+			g.drawString("GAME OVER", 100, 100);
+
+			//g.setFont(numkilledFont);
+		//	g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
+
+			//g.setFont(backspaceFont);
+			g.drawString("Press BACKSPACE to Restart", 80, 500);
+
+		}
+
 
 	    @Override
 	    public void actionPerformed(ActionEvent e)
