@@ -13,9 +13,13 @@ public class Platform extends GameObject{
 }
 	public void update() {
 		super.update();
-		
+		platformY-=speed;
+		if(platformY<0) {
+			touchPlatform=false;
+		}
 	}
 	public void draw(Graphics g) {
+		
 		
 	}
 }

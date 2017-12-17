@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -26,9 +27,15 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		final int GAME_STATE = 1;
 		final int END_STATE = 2;
 		int currentState = MENU_STATE;
+		Font titleFont;
+		Font startFont;
+		Font instructionFont;
+		Font gameOverFont;
+		Font numkilledFont;
+		Font backspaceFont;
 		Platform p1;
-	    private int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-	    private int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	    private static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+	    private static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
 	    private Rectangle2D.Double floor = new Rectangle2D.Double(x, y, 50, 50);
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
@@ -43,33 +50,27 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    public void run()
 	    {
 	    		mainGameWindow.addKeyListener(this);
-	        mainGameWindow.setTitle("Riddle Pig");
 	        mainGameWindow.setSize(widthOfScreen, heightOfScreen);
 	        mainGameWindow.add(this);//Adds the paint method
 	        mainGameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        mainGameWindow.setVisible(true);
 	        paintTicker.start();
 	    }
-
-	    public void paint(Graphics g)
-	    {
-	        Graphics2D g2 = (Graphics2D)g;
-	        g2.setColor(Color.BLUE);
-	        g2.fill(floor);
-	        g2.setColor(Color.red);
-	        g2.draw(floor);
-	        
-	        
-	    }
 	    public void paintComponent(Graphics g) {
-			if (currentState == MENU_STATE) {
+	    	
+	        if (currentState == MENU_STATE) {
 				drawMenuState(g);
 			} else if (currentState == GAME_STATE) {
 				drawGameState(g);
 			} else if (currentState == END_STATE) {
 				drawEndState(g);
 			}
-
+			Graphics2D g2 = (Graphics2D)g;
+	       g2.setColor(Color.BLUE);
+	      g2.fill(floor);
+	       g2.setColor(Color.red);
+	       g2.draw(floor);
+			
 		}
 	    public void updateMenuState() {
 
@@ -93,36 +94,40 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		public void drawMenuState(Graphics g) {
 			//manager.setScore(MENU_STATE);
 			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
-			//g.setFont(titleFont);
+			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+			g.setFont(titleFont);
 			g.setColor(Color.yellow);
-			g.drawString("RIDDLE PIG", 25, 200);
+			g.drawString("RIDDLE PIG", 850, 200);
 
-			//g.setFont(startFont);
-			g.drawString("Press ENTER to start", 125, 300);
+			g.setFont(startFont);
+			g.drawString("Press ENTER to start", 850, 300);
 
-			//g.setFont(instructionFont);
-			g.drawString("Press SPACE for instructions", 100, 400);
+			g.setFont(instructionFont);
+			g.drawString("Press SPACE for instructions", 900, 400);
 
 		}
 
 		public void drawGameState(Graphics g) {
 			g.setColor(Color.black);
-			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
+			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			manager.draw(g);
+			g.setColor(Color.YELLOW);
+			g.fillRect(1000, 710, 100, 25);
+			
+				
 		}
 
 		public void drawEndState(Graphics g) {
 			g.setColor(Color.red);
-			g.fillRect(0, 0, MyGame.WIDTH, MyGame.HEIGHT);
-		//	g.setFont(gameOverFont);
+			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+			g.setFont(gameOverFont);
 			g.setColor(Color.BLACK);
 			g.drawString("GAME OVER", 100, 100);
 
-			//g.setFont(numkilledFont);
+			g.setFont(numkilledFont);
 		//	g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
 
-			//g.setFont(backspaceFont);
+			g.setFont(backspaceFont);
 			g.drawString("Press BACKSPACE to Restart", 80, 500);
 
 		}
@@ -150,7 +155,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    		//System.out.println(x+" "+y);
 	    	//	floor.setRect(x+=1, y+=5, 100, 100);
 	    	//	System.out.println(x+" "+y);
-	        repaint(); //Calls on the paint() method.
+	        repaint(); 
 	    }
 
 		@Override
@@ -161,7 +166,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
+			if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+				currentState++;
+			}
+			if(currentState>END_STATE) {
+				currentState=MENU_STATE;
+			}
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
 				pressedUp=true;
 				
@@ -178,13 +188,18 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 				pressedDown=true;
 			}
+			
+			
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				manager.addPlatform(p1);
+			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
-					
+				
 				
 					
 			}
