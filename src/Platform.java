@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Objects;
 
 public class Platform extends GameObject{
 	int speed;
@@ -19,7 +21,8 @@ public class Platform extends GameObject{
 		}
 	}
 	public void draw(Graphics g) {
-		
+		g.setColor(Color.YELLOW);
+		g.fillRect(platformX, platformY, platformWidth, platformHeight);
 		
 	}
 }

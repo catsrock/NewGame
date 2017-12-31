@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -22,6 +24,14 @@ public void draw(Graphics g) {
 		GameObject p=platform.get(i);
 		p.draw(g);
 	}
+	setUpLevel();
+	
+}
+public void setUpLevel() {
+	
+		platform.add(new Platform(1000, 710, 100, 25));
+		platform.add(new Platform (1200, 680, 100, 25));
+	
 }
 //public void manageEnemies(){
 	//if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){

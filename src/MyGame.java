@@ -84,7 +84,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 				currentState = END_STATE;
 				manager.reset();
 				p1 = new Platform(250, 700, 50, 50);
-				manager.addPlatform(p1);
+				//manager.addPlatform(p1);
 			}
 		}
 		public void updateEndState() {
@@ -111,8 +111,11 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			manager.draw(g);
-			g.setColor(Color.YELLOW);
-			g.fillRect(1000, 710, 100, 25);
+			//Platform p2=new Platform(1000, 710, 100, 25);
+			//p2.draw(g);
+			
+			//g.setColor(Color.YELLOW);
+			//g.fillRect(1000, 710, 100, 25);
 			
 				
 		}
