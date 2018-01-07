@@ -37,10 +37,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    private static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    private static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
-	    private Rectangle2D.Double floor = new Rectangle2D.Double(x, y, 50, 50);
+	   
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
-	    ObjectManager manager=new ObjectManager();
-
+	    
+	    Player wolf=new Player(x, y);
+	    ObjectManager manager=new ObjectManager(wolf);
+	    
 		
 	    public static void main(String[] args)
 	    {
@@ -65,11 +67,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			} else if (currentState == END_STATE) {
 				drawEndState(g);
 			}
-			Graphics2D g2 = (Graphics2D)g;
-	       g2.setColor(Color.BLUE);
-	      g2.fill(floor);
-	       g2.setColor(Color.red);
-	       g2.draw(floor);
+			
 			
 		}
 	    public void updateMenuState() {
@@ -79,11 +77,11 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		public void updateGameState() {
 			manager.update();
 			//manager.manageEnemies();
-			//manager.checkCollision();
+			manager.checkCollision();
 			if (p1.touchPlatform == false) {
 				currentState = END_STATE;
 				manager.reset();
-				p1 = new Platform(250, 700, 50, 50);
+				//p1 = new Platform(250, 700, 50, 50);
 				//manager.addPlatform(p1);
 			}
 		}
@@ -97,10 +95,10 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			g.setFont(titleFont);
 			g.setColor(Color.yellow);
-			g.drawString("RIDDLE PIG", 850, 200);
+			g.drawString("RIDDLE PIG", 900, 200);
 
 			g.setFont(startFont);
-			g.drawString("Press ENTER to start", 850, 300);
+			g.drawString("Press ENTER to start", 870, 300);
 
 			g.setFont(instructionFont);
 			g.drawString("Press SPACE for instructions", 900, 400);
@@ -111,6 +109,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			manager.draw(g);
+			
 			//Platform p2=new Platform(1000, 710, 100, 25);
 			//p2.draw(g);
 			
@@ -125,13 +124,13 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			g.setFont(gameOverFont);
 			g.setColor(Color.BLACK);
-			g.drawString("GAME OVER", 100, 100);
+			g.drawString("GAME OVER", 1000, 100);
 
 			g.setFont(numkilledFont);
 		//	g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
 
 			g.setFont(backspaceFont);
-			g.drawString("Press BACKSPACE to Restart", 80, 500);
+			g.drawString("Press BACKSPACE to Restart", 800, 500);
 
 		}
 
@@ -145,15 +144,18 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    	
 	    }
 	    if(pressedDown==true) {
-	    	y+=5;
+	    wolf.playerY+=5;
+	   
 	    }
 	    if(pressedLeft==true) {
-	    x-=5;
+	    wolf.playerX-=5;
+	    
 	    }
 	    if(pressedRight==true) {
-	    	x+=5;
+	    	wolf.playerX+=5;
+	    	
 	    }
-			floor.setRect(x, y, 50, 50);	
+		
 	    	
 	    		//System.out.println(x+" "+y);
 	    	//	floor.setRect(x+=1, y+=5, 100, 100);
@@ -218,11 +220,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			}
 	}
 void jump() {
-	y-=acceleration;
+	wolf.playerY-=acceleration;
 	acceleration--;
 	if(acceleration==-21) {
 		acceleration=20;
 		pressedUp=false;
 	}
+	
 }
 }

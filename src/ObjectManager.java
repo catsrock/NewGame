@@ -6,8 +6,10 @@ import java.util.Random;
 
 public class ObjectManager {
 ArrayList<GameObject> platform;
-public ObjectManager() {
+Player wolf;
+public ObjectManager(Player p) {
 	platform=new ArrayList<GameObject>();
+	wolf=p;
 }
 public void addPlatform(GameObject p) {
 	platform.add(p);
@@ -20,6 +22,7 @@ public void update() {
 	
 }
 public void draw(Graphics g) {
+	wolf.draw(g);
 	for (int i = 0; i < platform.size(); i++) {
 		GameObject p=platform.get(i);
 		p.draw(g);
@@ -33,6 +36,8 @@ public void setUpLevel() {
 		platform.add(new Platform (1200, 680, 100, 25));
 	
 }
+
+
 //public void manageEnemies(){
 	//if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
 		//addObject(new Alien(new Random().nextInt(MyGame.WIDTH), 0, 50, 50));
@@ -41,30 +46,25 @@ public void setUpLevel() {
 //}
 
 
-//public void checkCollision() {
-	//for (int i = 0; i < platform.size(); i++) {
-		//for (int j = i + 1; j < platform.size(); j++) {
-			//GameObject p1 = platform.get(i);
-			//GameObject p2 = platform.get(j);
+public void checkCollision() {
+	for (int i = 0; i < platform.size(); i++) {
+		
+			GameObject p1 = platform.get(i);
 			
-			//if(p1.collisionBox.intersects(p2.collisionBox)){
-			//	if((p1 instanceof Alien && p2 instanceof Projectile) ||
-			//	   (p2 instanceof Alien && p1 instanceof Projectile)){
-			//		score++;
-			//		System.out.println(score);
-			//		p1.touchPlatform = false;
-			//		p2.touchPlatform = false;
-			//	}
-			//	else if((p1 instanceof Alien && p2 instanceof Rocketship) ||
-			//			(p2 instanceof Alien && p1 instanceof Rocketship)){
-			//		p1.touchPlatform = false;
-			//		p2.touchPlatform = false;
-			//	}
+			
+			if(p1.collisionBox.intersects(wolf.collisionBox)){
+				
+					//score++;
+					//System.out.println(score);
+					p1.touchPlatform = false;
+					System.out.println("hi");
+				}
+				
 
-//			}
-//		}
-//	}
-//}
+
+		}
+	}
+
 public void reset() {
 	platform.clear();
 }

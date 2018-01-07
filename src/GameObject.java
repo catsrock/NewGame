@@ -9,10 +9,7 @@ int platformHeight;
 boolean touchPlatform=true;
 Rectangle collisionBox;
 public GameObject(int platformX, int platformY, int platformWidth, int platformHeight){
-	this.platformX=platformX;
-	this.platformY=platformY;
-	this.platformWidth=platformWidth;
-	this.platformHeight=platformHeight;
+	
 	collisionBox=new Rectangle(platformX, platformY, platformWidth, platformHeight);
 }
 public void update() {
