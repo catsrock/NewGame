@@ -2,18 +2,18 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class GameObject{
-int platformX;
-int platformY;
-int platformWidth;
-int platformHeight;
+int x;
+int y;
+int width;
+int height;
 boolean touchPlatform=true;
 Rectangle collisionBox;
-public GameObject(int platformX, int platformY, int platformWidth, int platformHeight){
+public GameObject(int x, int y, int width, int height){
 	
-	collisionBox=new Rectangle(platformX, platformY, platformWidth, platformHeight);
+	collisionBox=new Rectangle(x, y, width, height);
 }
 public void update() {
-	collisionBox.setBounds(platformX, platformY, platformWidth, platformHeight);
+	collisionBox.setBounds(x, y, width, height);
 }
 public void draw(Graphics g) {
 	

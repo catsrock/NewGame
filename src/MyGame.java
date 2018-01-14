@@ -33,11 +33,10 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		Font gameOverFont;
 		Font numkilledFont;
 		Font backspaceFont;
-		Platform p1;
 	    private static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    private static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
-	   
+	    
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
 	    
 	    Player wolf=new Player(x, y);
@@ -75,15 +74,11 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		}
 
 		public void updateGameState() {
+			System.out.println("bai");
 			manager.update();
 			//manager.manageEnemies();
 			manager.checkCollision();
-			if (p1.touchPlatform == false) {
-				currentState = END_STATE;
-				manager.reset();
-				//p1 = new Platform(250, 700, 50, 50);
-				//manager.addPlatform(p1);
-			}
+			
 		}
 		public void updateEndState() {
 
@@ -108,7 +103,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		public void drawGameState(Graphics g) {
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
-			manager.draw(g);
+			manager.addPlatform(wolf, g);
+			//manager.draw(g);
 			
 			//Platform p2=new Platform(1000, 710, 100, 25);
 			//p2.draw(g);
@@ -155,7 +151,13 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    	wolf.playerX+=5;
 	    	
 	    }
-		
+        if (currentState == MENU_STATE) {
+			updateMenuState();
+		} else if (currentState == GAME_STATE) {
+			updateGameState();
+		} else if (currentState == END_STATE) {
+			updateEndState();
+		}
 	    	
 	    		//System.out.println(x+" "+y);
 	    	//	floor.setRect(x+=1, y+=5, 100, 100);
@@ -195,9 +197,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			}
 			
 			
-			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
-				manager.addPlatform(p1);
-			}
+			
 		}
 
 		@Override

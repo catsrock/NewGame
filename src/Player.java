@@ -4,10 +4,10 @@ import java.awt.Graphics;
 public class Player extends GameObject{
 	int playerX;
 	int playerY;
-	private int playerWidth=50;
-	private int playerHeight=50;
+	private static int playerWidth=50;
+	private static int playerHeight=50;
 public Player(int playerX, int playerY) {
-	super();
+	super(playerX, playerY, playerWidth, playerHeight);
 	this.playerX=playerX;
 	this.playerY=playerY;
 }

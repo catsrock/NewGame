@@ -7,26 +7,29 @@ import java.util.Random;
 public class ObjectManager {
 ArrayList<GameObject> platform;
 Player wolf;
-public ObjectManager(Player p) {
+public ObjectManager(Player p1) {
 	platform=new ArrayList<GameObject>();
-	wolf=p;
+	wolf=p1;
 }
-public void addPlatform(GameObject p) {
+public void addPlatform(GameObject p, Graphics g) {
+	wolf.draw(g);
 	platform.add(p);
+	
 }
 public void update() {
 	for (int i = 0; i < platform.size(); i++) {
-		GameObject p = platform.get(i);
-		p.update();
+		GameObject p4 = platform.get(i);
+		p4.update();
 	}
 	
 }
 public void draw(Graphics g) {
 	wolf.draw(g);
 	for (int i = 0; i < platform.size(); i++) {
-		GameObject p=platform.get(i);
-		p.draw(g);
+		GameObject p3=platform.get(i);
+		p3.draw(g);
 	}
+	
 	setUpLevel();
 	
 }
@@ -47,22 +50,24 @@ public void setUpLevel() {
 
 
 public void checkCollision() {
+	System.out.println("boo");
 	for (int i = 0; i < platform.size(); i++) {
 		
-			GameObject p1 = platform.get(i);
+			GameObject p2 = platform.get(i);
+			System.out.println("feep");
 			
-			
-			if(p1.collisionBox.intersects(wolf.collisionBox)){
-				
+			if(p2.collisionBox.intersects(wolf.collisionBox)){
+				//wolf.collisionBox.intersects(p2.collisionBox)
 					//score++;
 					//System.out.println(score);
-					p1.touchPlatform = false;
+					//p1.touchPlatform = false;
 					System.out.println("hi");
 				}
-				
+				System.out.println("hello");
 
 
 		}
+	System.out.println("meep");
 	}
 
 public void reset() {
