@@ -36,7 +36,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    private static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    private static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
-	    
+	    static boolean stopPlatforms=false;
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
 	    
 	    Player wolf=new Player(x, y);
@@ -62,6 +62,13 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	        if (currentState == MENU_STATE) {
 				drawMenuState(g);
 			} else if (currentState == GAME_STATE) {
+				if(stopPlatforms==false) {
+					
+					manager.setUpLevel();
+					
+					stopPlatforms=true;
+					
+				}
 				drawGameState(g);
 			} else if (currentState == END_STATE) {
 				drawEndState(g);
@@ -101,10 +108,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		}
 
 		public void drawGameState(Graphics g) {
+			System.out.println("why notworking");
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+			manager.draw(g);
 			manager.addPlatform(wolf, g);
-			//manager.draw(g);
+			System.out.println("check");
 			
 			//Platform p2=new Platform(1000, 710, 100, 25);
 			//p2.draw(g);

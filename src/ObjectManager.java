@@ -12,9 +12,14 @@ public ObjectManager(Player p1) {
 	wolf=p1;
 }
 public void addPlatform(GameObject p, Graphics g) {
-	wolf.draw(g);
-	platform.add(p);
 	
+	platform.add(p);
+	System.out.println("daflh");
+	//for (int i = 0; i < platform.size(); i++) {
+	//	GameObject p3=platform.get(i);
+		//p3.draw(g);
+	//wolf.draw(g);
+	//}
 }
 public void update() {
 	for (int i = 0; i < platform.size(); i++) {
@@ -24,13 +29,13 @@ public void update() {
 	
 }
 public void draw(Graphics g) {
-	wolf.draw(g);
+	//wolf.draw(g);
+	System.out.println("runningoutofwords");
 	for (int i = 0; i < platform.size(); i++) {
 		GameObject p3=platform.get(i);
 		p3.draw(g);
 	}
 	
-	setUpLevel();
 	
 }
 public void setUpLevel() {
@@ -54,7 +59,7 @@ public void checkCollision() {
 	for (int i = 0; i < platform.size(); i++) {
 		
 			GameObject p2 = platform.get(i);
-			System.out.println("feep");
+			//System.out.println("feep");
 			
 			if(p2.collisionBox.intersects(wolf.collisionBox)){
 				//wolf.collisionBox.intersects(p2.collisionBox)
@@ -73,5 +78,6 @@ public void checkCollision() {
 public void reset() {
 	platform.clear();
 }
+
 
 }
