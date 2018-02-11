@@ -3,17 +3,14 @@ import java.awt.Graphics;
 import java.util.Objects;
 
 public class Platform extends GameObject{
-	int platformX;
-	int platformY;
-	int platformWidth=100;
-	int platformHeight=25;
+	
+	static int platformWidth=100;
+	static int platformHeight=25;
 
-	public Platform(int platformX, int platformY, int platformWidth, int platformHeight) {
+	public Platform(int platformX, int platformY) {
 		super(platformX, platformY, platformWidth, platformHeight);
-	this.platformX=platformX;
-	this.platformY=platformY;
-	this.platformWidth=platformWidth;
-	this.platformHeight=platformHeight;
+	
+	
 }
 	public void update() {
 		super.update();
@@ -24,7 +21,7 @@ public class Platform extends GameObject{
 	}
 	public void draw(Graphics g) {
 		g.setColor(Color.YELLOW);
-		g.fillRect(platformX, platformY, platformWidth, platformHeight);
+		g.fillRect(x, y, platformWidth, platformHeight);
 		
 	}
 }

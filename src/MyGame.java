@@ -65,11 +65,14 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 				if(stopPlatforms==false) {
 					
 					manager.setUpLevel();
-					
+					drawGameState(g);
 					stopPlatforms=true;
 					
 				}
-				drawGameState(g);
+				else {
+					drawGameState(g);
+				}
+				
 			} else if (currentState == END_STATE) {
 				drawEndState(g);
 			}
@@ -111,8 +114,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			System.out.println("why notworking");
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
-			manager.draw(g);
-			manager.addPlatform(wolf, g);
+			manager.draw(wolf, g);
 			System.out.println("check");
 			
 			//Platform p2=new Platform(1000, 710, 100, 25);
@@ -149,15 +151,15 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    	
 	    }
 	    if(pressedDown==true) {
-	    wolf.playerY+=5;
+	    wolf.y+=5;
 	   
 	    }
 	    if(pressedLeft==true) {
-	    wolf.playerX-=5;
+	    wolf.x-=5;
 	    
 	    }
 	    if(pressedRight==true) {
-	    	wolf.playerX+=5;
+	    	wolf.x+=5;
 	    	
 	    }
         if (currentState == MENU_STATE) {
@@ -229,7 +231,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			}
 	}
 void jump() {
-	wolf.playerY-=acceleration;
+	wolf.y-=acceleration;
 	acceleration--;
 	if(acceleration==-21) {
 		acceleration=20;
