@@ -14,11 +14,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class MyGame extends JComponent implements ActionListener, Runnable, KeyListener{
-		private int acceleration=20;
-		private boolean pressedUp=false;
-		private boolean pressedDown=false;
-		private boolean pressedRight=false;
-		private boolean pressedLeft=false;
+		static boolean pressedUp=false;
+		private static boolean pressedDown=false;
+		private static boolean pressedRight=false;
+		private static boolean pressedLeft=false;
 		private int x=900;
 	    private int y=810;
 	    static final int WIDTH=500;
@@ -146,7 +145,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    public void actionPerformed(ActionEvent e)
 	    {
 	    if(pressedUp==true) {
-	   jump(); 	
+	   wolf.jump(); 	
 	   
 	    	
 	    }
@@ -230,13 +229,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 				pressedDown=false;
 			}
 	}
-void jump() {
-	wolf.y-=acceleration;
-	acceleration--;
-	if(acceleration==-21) {
-		acceleration=20;
-		pressedUp=false;
-	}
+
 	
 }
-}
+

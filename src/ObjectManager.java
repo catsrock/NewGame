@@ -62,11 +62,13 @@ public void checkCollision() {
 			GameObject p2 = platform.get(i);
 			//System.out.println("feep");
 			if(p2.collisionBox.intersects(wolf.collisionBox)) {
-				JOptionPane.showMessageDialog(null, "flurrrrb");
 				System.out.println("hi");
+				JOptionPane.showMessageDialog(null, "flurrrrb");
+				//if(playerY-playerHeight)
 			}
 			else {
 				System.out.println("blurrrb");
+				//JOptionPane.showMessageDialog(null, "blobby");
 			}
 				
 					//score++;
