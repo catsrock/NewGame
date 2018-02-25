@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 public class ObjectManager {
 ArrayList<GameObject> platform;
 Player wolf;
+int collisionX;
+int collisionY;
 public ObjectManager(Player p1) {
 	platform=new ArrayList<GameObject>();
 	wolf=p1;
@@ -39,6 +41,10 @@ public void draw(GameObject p, Graphics g) {
 	
 	
 }
+void set() {
+	this.collisionX=wolf.x;
+	this.collisionY=wolf.y;
+}
 public void setUpLevel() {
 	
 		platform.add(new Platform(1000, 710));
@@ -55,32 +61,41 @@ public void setUpLevel() {
 //}
 
 
-public void checkCollision() {
+public  boolean checkCollision() {
 	System.out.println("boo");
 	for (int i = 0; i < platform.size(); i++) {
 		
 			GameObject p2 = platform.get(i);
+		//	collisionX=wolf.x;
+		//	collisionY=wolf.y-1;
 			//System.out.println("feep");
 			if(p2.collisionBox.intersects(wolf.collisionBox)) {
-				System.out.println("hi");
-				JOptionPane.showMessageDialog(null, "flurrrrb");
-				//if(playerY-playerHeight)
-			}
-			else {
-				System.out.println("blurrrb");
-				//JOptionPane.showMessageDialog(null, "blobby");
-			}
 				
-					//score++;
-					//System.out.println(score);
-					//p1.touchPlatform = false;
+				if(wolf.x+wolf.width>=p2.x && wolf.y+wolf.height>p2.y) {
+					JOptionPane.showMessageDialog(null, "blup");
+					System.out.println("nup");
+					return true;
+				}
+				
+				//if(collisionY+playerHeight>p2.height && collisionX+playerWidth>=p2.width ) {
 					
+				//}
+				
+				
+				
+				
+				
+				
+			}
+			
+			
 				
 				System.out.println("hello");
 
 
 		}
-	System.out.println("meep");
+	return false;
+	
 	}
 
 public void reset() {
