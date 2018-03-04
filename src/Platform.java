@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Platform extends GameObject{
 	
-	static int platformWidth=100;
-	static int platformHeight=25;
+	//static int platformWidth=100;
+	//static int platformHeight=25;
 
-	public Platform(int platformX, int platformY) {
+	public Platform(int platformX, int platformY, int platformWidth, int platformHeight) {
 		super(platformX, platformY, platformWidth, platformHeight);
 	
-	
-}
+		
+	}
 	public void update() {
 		super.update();
 		//platformY-=speed;
@@ -21,7 +21,7 @@ public class Platform extends GameObject{
 	}
 	public void draw(Graphics g) {
 		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, platformWidth, platformHeight);
+		g.fillRect(x, y, width, height);
 		
 	}
 }

@@ -145,20 +145,23 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    public void actionPerformed(ActionEvent e)
 	    {
 	    if(pressedUp==true) {
-	   wolf.jump(); 	
+	   wolf.jump();
 	   
 	    	
 	    }
 	    if(pressedDown==true) {
-	    wolf.y+=5;
+	    wolf.moveDown();
+	   // 	wolf.y+=5;
 	   
 	    }
 	    if(pressedLeft==true) {
-	    wolf.x-=5;
+	    wolf.moveLeft();
+	    	//wolf.x-=5;
 	    
 	    }
 	    if(pressedRight==true) {
-	    	wolf.x+=5;
+	    wolf.moveRight();
+	   // 	wolf.x+=5;
 	    	
 	    }
         if (currentState == MENU_STATE) {

@@ -47,9 +47,9 @@ void set() {
 }
 public void setUpLevel() {
 	
-		platform.add(new Platform(1000, 710));
-		platform.add(new Platform (1200, 680));
-	
+		platform.add(new Platform(1000, 710, 100, 25));
+		platform.add(new Platform (1200, 680, 100, 25));
+		platform.add(new Platform(0, 925, 10000, 25));
 }
 
 
@@ -70,9 +70,11 @@ public  boolean checkCollision() {
 		//	collisionY=wolf.y-1;
 			//System.out.println("feep");
 			if(p2.collisionBox.intersects(wolf.collisionBox)) {
-				
+				//JOptionPane.showMessageDialog(null, "blup");
+				wolf.update();
 				if(wolf.x+wolf.width>=p2.x && wolf.y+wolf.height>p2.y) {
-					JOptionPane.showMessageDialog(null, "blup");
+					
+					
 					System.out.println("nup");
 					return true;
 				}
@@ -80,8 +82,6 @@ public  boolean checkCollision() {
 				//if(collisionY+playerHeight>p2.height && collisionX+playerWidth>=p2.width ) {
 					
 				//}
-				
-				
 				
 				
 				
