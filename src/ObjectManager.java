@@ -71,29 +71,29 @@ public  boolean checkCollision() {
 			//System.out.println("feep");
 			if(p2.collisionBox.intersects(wolf.collisionBox)) {
 				//JOptionPane.showMessageDialog(null, "blup");
+				
 				wolf.update();
-				if(wolf.x+wolf.width>=p2.x && wolf.y+wolf.height>p2.y) {
-					
+				if(wolf.x+wolf.width>=p2.x-p2.width && wolf.y+wolf.height>p2.y-p2.height) {
+					//JOptionPane.showMessageDialog(null, "WURK");
+					MyGame.pressedDown=false;
+					wolf.playerCollision=true;
 					
 					System.out.println("nup");
 					return true;
 				}
 				
+				
 				//if(collisionY+playerHeight>p2.height && collisionX+playerWidth>=p2.width ) {
 					
-				//}
-				
-				
-				
+				//}	
 				
 			}
-			
-			
 				
 				System.out.println("hello");
 
 
 		}
+	wolf.playerCollision=false;
 	return false;
 	
 	}

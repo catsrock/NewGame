@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 public class MyGame extends JComponent implements ActionListener, Runnable, KeyListener{
 		static boolean pressedUp=false;
-		private static boolean pressedDown=false;
+		static boolean pressedDown=false;
 		private static boolean pressedRight=false;
 		private static boolean pressedLeft=false;
 		private int x=900;
@@ -217,7 +217,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
-				
+				pressedUp=false;
 				
 					
 			}

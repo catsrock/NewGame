@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import javax.swing.JOptionPane;
 
 public class Player extends GameObject{
-	private int gravity=5;
+	private int gravity=3;
 	boolean playerCollision=false;
-	private int acceleration=20;
+	private int acceleration=15;
 	private static int playerWidth=50;
 	private static int playerHeight=50;
 public Player(int playerX, int playerY) {
@@ -15,17 +15,17 @@ public Player(int playerX, int playerY) {
 }
 public void update() {
 	super.update();
-	y+=gravity;
 	if(playerCollision==true) {
-	gravity=4;
-	this.y-=gravity;
+	//gravity=4;
+	//this.y-=gravity;
 	acceleration=0;
+	//y-=acceleration;
 	this.y-=acceleration;
 	acceleration--;
-	JOptionPane.showMessageDialog(null, "spoopy");
-	
-	
 		
+	}
+	else {
+		y+=gravity;
 	}
 	//else if(playerCollision==true) {
 	//	y-=gravity;
@@ -35,14 +35,14 @@ public void draw(Graphics g) {
 	g.setColor(Color.green);
 	g.fillRect(x, y, playerWidth, playerHeight);
 }
-void jump() {
-	
+public void jump() {
+	acceleration=15;
 	this.y-=acceleration;
 	acceleration--;
-	if(acceleration<0) {
-		acceleration=20;
-		MyGame.pressedUp=false;
-	}
+//	if(acceleration<0) {
+	//	acceleration=20;
+//		MyGame.pressedUp=false;
+//	}
 	
 }
 public void moveDown() {
