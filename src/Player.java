@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JOptionPane;
 
@@ -7,51 +8,58 @@ public class Player extends GameObject{
 	private int gravity=3;
 	boolean playerCollision=false;
 	private int acceleration=15;
+	private int tempX;
+	private int tempY;
 	private static int playerWidth=50;
 	private static int playerHeight=50;
 public Player(int playerX, int playerY) {
 	super(playerX, playerY, playerWidth, playerHeight);
-	
+	tempX=x;
+	tempY=y;
 }
+
 public void update() {
 	super.update();
-	if(playerCollision==true) {
-	//gravity=4;
-	//this.y-=gravity;
-	acceleration=0;
-	//y-=acceleration;
-	this.y-=acceleration;
-	acceleration--;
-		
+	collisionBox.setBounds(tempX, tempY+=gravity, playerWidth, playerHeight);
+	if(playerCollision==false) {
+	//acceleration=0;
+	x=tempX;
+	y=tempY;
+	//this.y-=acceleration;
+	//acceleration--;
+	
 	}
 	else {
-		y+=gravity;
+		playerCollision=false;
+		//y+=gravity;
 	}
 	//else if(playerCollision==true) {
 	//	y-=gravity;
 	//}
 }
 public void draw(Graphics g) {
-	g.setColor(Color.green);
+	Graphics2D g2=(Graphics2D) g;
+	g.setColor(Color.RED);
 	g.fillRect(x, y, playerWidth, playerHeight);
+	g2.setColor(Color.BLUE);
+	g2.draw(collisionBox);
 }
 public void jump() {
 	acceleration=15;
-	this.y-=acceleration;
-	acceleration--;
-//	if(acceleration<0) {
-	//	acceleration=20;
-//		MyGame.pressedUp=false;
-//	}
+	this.tempY-=acceleration;
+	//this.y-=acceleration;
+	acceleration--;	if(acceleration<0) {
+	acceleration=20;
+MyGame.pressedUp=false;	}
 	
 }
 public void moveDown() {
-	y+=5;
+	tempY+=5;
 }
 public void  moveLeft() {
-	x-=5;
+	tempX-=5;
 }
 public void moveRight() {
-	x+=5;
+	tempX+=5;
 }
 }

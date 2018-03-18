@@ -32,6 +32,7 @@ public void update() {
 	wolf.update();
 }
 public void draw(GameObject p, Graphics g) {
+	
 	wolf.draw(g);
 	System.out.println("runningoutofwords");
 	for (int i = 0; i < platform.size(); i++) {
@@ -73,11 +74,14 @@ public  boolean checkCollision() {
 				//JOptionPane.showMessageDialog(null, "blup");
 				
 				wolf.update();
+				//if(yHitbox.y>=p2.x-p2.width) {
+					
+				//}
 				if(wolf.x+wolf.width>=p2.x-p2.width && wolf.y+wolf.height>p2.y-p2.height) {
 					//JOptionPane.showMessageDialog(null, "WURK");
 					MyGame.pressedDown=false;
 					wolf.playerCollision=true;
-					
+					//JOptionPane.showMessageDialog(null, "WURK");
 					System.out.println("nup");
 					return true;
 				}

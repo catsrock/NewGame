@@ -37,10 +37,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
 	    static boolean stopPlatforms=false;
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
-	    
 	    Player wolf=new Player(x, y);
 	    ObjectManager manager=new ObjectManager(wolf);
-	    
 		
 	    public static void main(String[] args)
 	    {
@@ -114,8 +112,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			manager.draw(wolf, g);
-			System.out.println("check");
 			
+			System.out.println("check");
 			//Platform p2=new Platform(1000, 710, 100, 25);
 			//p2.draw(g);
 			
