@@ -34,7 +34,6 @@ public void update() {
 	
 	}
 	else {
-		gravity+=1;
 		tempY-=gravity;
 		//tempY-=gravity+1;
 		playerCollision=false;
