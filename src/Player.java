@@ -9,7 +9,9 @@ public class Player extends GameObject{
 	boolean playerCollision=false;
 	private int acceleration=15;
 	private int tempX;
+	//int tempX;
 	private int tempY;
+	//int tempY;
 	private static int playerWidth=50;
 	private static int playerHeight=50;
 public Player(int playerX, int playerY) {
@@ -20,17 +22,26 @@ public Player(int playerX, int playerY) {
 
 public void update() {
 	super.update();
-	collisionBox.setBounds(tempX, tempY+=gravity, playerWidth, playerHeight);
+	collisionBox.setBounds(tempX, tempY+5, playerWidth, playerHeight);
 	if(playerCollision==false) {
 	//acceleration=0;
+	
 	x=tempX;
 	y=tempY;
+	tempY+=gravity;
 	//this.y-=acceleration;
 	//acceleration--;
 	
 	}
 	else {
+		gravity+=1;
+		tempY-=gravity;
+		//tempY-=gravity+1;
 		playerCollision=false;
+		//tempY-=1;
+		
+		
+		
 		//y+=gravity;
 	}
 	//else if(playerCollision==true) {

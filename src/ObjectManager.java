@@ -77,6 +77,7 @@ public  boolean checkCollision() {
 				//if(yHitbox.y>=p2.x-p2.width) {
 					
 				//}
+				//if(wolf.x+wolf.width>=p2.x-p2.width && wolf.y+wolf.height>p2.y-p2.height)
 				if(wolf.x+wolf.width>=p2.x-p2.width && wolf.y+wolf.height>p2.y-p2.height) {
 					//JOptionPane.showMessageDialog(null, "WURK");
 					MyGame.pressedDown=false;
