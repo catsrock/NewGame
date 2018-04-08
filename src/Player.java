@@ -22,7 +22,7 @@ public Player(int playerX, int playerY) {
 
 public void update() {
 	super.update();
-	collisionBox.setBounds(tempX, tempY+5, playerWidth, playerHeight);
+	collisionBox.setBounds(tempX, tempY+8, playerWidth, playerHeight);
 	if(playerCollision==false) {
 	//acceleration=0;
 	
@@ -34,10 +34,28 @@ public void update() {
 	
 	}
 	else {
+		
+		//tempY-=gravity;
+		//tempY-=1;
+		if(playerCollision==true) {
+		//	tempY=y+1;
+			tempY-=1;
+			tempY=y+1;
+			//tempY--;
+			//y=tempY;
+			//y=tempY;
+			//tempY=y;
+		}
+		
+		tempY-=1;
 		tempY-=gravity;
+		tempY+=1;
+		
+			
+		
 		//tempY-=gravity+1;
 		playerCollision=false;
-		//tempY-=1;
+		
 		
 		
 		
