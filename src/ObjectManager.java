@@ -1,16 +1,21 @@
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.Timer;
 
-public class ObjectManager {
+
+public class ObjectManager implements ActionListener {
 	ArrayList<GameObject> platform;
 	Player wolf;
-	int rX;
-	int rY;
-
+	Random r=new Random();
+	long randomTime=0;
+	int waitTime=3000;
 	public ObjectManager(Player p1) {
 		platform = new ArrayList<GameObject>();
 		wolf = p1;
+		//platformer.start();
 	}
 
 	public void addPlatform(GameObject p, Graphics g) {
@@ -42,8 +47,17 @@ public class ObjectManager {
 
 	}
 
-	public void randomPlatform(Random x, Random y, int width, int height) {
-
+	public int randomX() {
+		return r.nextInt(1500);
+	}
+	public int randomY() {
+		return r.nextInt(900);
+	}
+	public void randomPlatforms() {
+		if(System.currentTimeMillis()-randomTime>=waitTime) {
+			platform.add(new randomPlatform(new Random(1500), new Random(900), new Random(100), new Random(25)));
+		randomTime=System.currentTimeMillis();
+		}
 	}
 
 	public void setUpLevel() {
@@ -51,6 +65,7 @@ public class ObjectManager {
 		platform.add(new Platform(1200, 680, 100, 25));
 		platform.add(new Platform(0, 925, 10000, 25));
 		platform.add(new Platform(500, 500, 100, 25));
+		randomPlatforms();
 	}
 
 	// public void manageEnemies(){
@@ -106,6 +121,12 @@ public class ObjectManager {
 
 	public void reset() {
 		platform.clear();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

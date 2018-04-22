@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Objects;
+import java.util.Random;
 
 public class Platform extends GameObject{
 	
@@ -12,9 +13,12 @@ public class Platform extends GameObject{
 	
 		
 	}
+	public void randomPlatform(Random rX, Random rY, Random rWidth, Random rHeight) {
+		
+	}
 	public void update() {
 		super.update();
-		
+
 	}
 	public void draw(Graphics g) {
 		g.setColor(Color.YELLOW);
