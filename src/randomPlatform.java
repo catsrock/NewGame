@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Random;
 //*This class was NEWLY created for randomPlatform generator*
 public class randomPlatform extends GameObject {
-
-	public randomPlatform(Random random, Random random2, Random random3, Random random4) {
-		super(random, random2, random3, random4);
+	
+	public randomPlatform(int x, int y, int width, int height) {
+		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
 	public void update() {
@@ -15,5 +16,7 @@ public class randomPlatform extends GameObject {
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 	}
+	
 
 }
+

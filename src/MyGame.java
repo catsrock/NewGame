@@ -32,8 +32,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		Font gameOverFont;
 		Font numkilledFont;
 		Font backspaceFont;
-	    private static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
-	    private static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+	    static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+	    static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
 	    static boolean stopPlatforms=false;
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.

@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Player extends GameObject {
-	private int gravity = 7;
+	private int gravity = 9;
 	boolean playerCollision = false;
 	private int acceleration = 15;
 	private int tempX;

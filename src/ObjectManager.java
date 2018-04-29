@@ -1,3 +1,4 @@
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,18 +9,23 @@ import javax.swing.Timer;
 
 public class ObjectManager implements ActionListener {
 	ArrayList<GameObject> platform;
+	ArrayList<GameObject> randPlatform; //s
 	Player wolf;
 	Random r=new Random();
+	int randomWidth=r.nextInt(61)+10;
+	int randomHeight=r.nextInt(16)+10;
 	long randomTime=0;
 	int waitTime=3000;
 	public ObjectManager(Player p1) {
 		platform = new ArrayList<GameObject>();
+		randPlatform=new ArrayList<GameObject>(); //s
 		wolf = p1;
 		//platformer.start();
 	}
 
 	public void addPlatform(GameObject p, Graphics g) {
 		platform.add(p);
+		randPlatform.add(p); //s
 		System.out.println("daflh");
 		// for (int i = 0; i < platform.size(); i++) {
 		// GameObject p3=platform.get(i);
@@ -33,6 +39,11 @@ public class ObjectManager implements ActionListener {
 			GameObject p4 = platform.get(i);
 			p4.update();
 		}
+		for (int i=0; i<randPlatform.size(); i++) { //s
+			GameObject p5=randPlatform.get(i); //s
+			p5.update(); //s
+		} //s
+		
 		wolf.update();
 	}
 
@@ -44,26 +55,26 @@ public class ObjectManager implements ActionListener {
 			GameObject p3 = platform.get(i);
 			p3.draw(g);
 		}
+		for (int i = 0; i < randPlatform.size(); i++) { //s
+			GameObject p6 = randPlatform.get(i); //s
+			p6.draw(g); //s
+		} //s
 
-	}
-
-	public int randomX() {
-		return r.nextInt(1500);
-	}
-	public int randomY() {
-		return r.nextInt(900);
 	}
 	public void randomPlatforms() {
 		if(System.currentTimeMillis()-randomTime>=waitTime) {
-			platform.add(new randomPlatform(new Random(1500), new Random(900), new Random(100), new Random(25)));
+			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
 		randomTime=System.currentTimeMillis();
+		
 		}
 	}
 
 	public void setUpLevel() {
 
 		platform.add(new Platform(1200, 680, 100, 25));
-		platform.add(new Platform(0, 925, 10000, 25));
+		platform.add(new Platform(920, 925, 10, 25));
 		platform.add(new Platform(500, 500, 100, 25));
 		randomPlatforms();
 	}
@@ -80,6 +91,7 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < platform.size(); i++) {
 
 			GameObject p2 = platform.get(i);
+			
 			// collisionX=wolf.x;
 			// collisionY=wolf.y-1;
 			// System.out.println("feep");
@@ -93,6 +105,7 @@ public class ObjectManager implements ActionListener {
 				if (wolf.collisionBox.intersects(p2.collisionBox)) {
 					wolf.setY(p2.getY() - wolf.height);
 				}
+				
 				// if(wolf.x+wolf.width>=p2.x-p2.width && wolf.y+wolf.height>p2.y-p2.height)
 				if (wolf.x + wolf.width >= p2.x - p2.width && wolf.y + wolf.height > p2.y - p2.height) {
 					// JOptionPane.showMessageDialog(null, "WURK");
@@ -111,9 +124,23 @@ public class ObjectManager implements ActionListener {
 
 			}
 
-			System.out.println("hello");
+			
 
 		}
+		for (int i = 0; i < randPlatform.size(); i++) { //s
+			GameObject p7 = randPlatform.get(i);
+			if (wolf.collisionBox.intersects(p7.collisionBox)) {
+				wolf.update();
+				if (wolf.collisionBox.intersects(p7.collisionBox)) {
+					wolf.setY(p7.getY() - wolf.height);
+				}
+				if (wolf.x + wolf.width >= p7.x - p7.width && wolf.y + wolf.height > p7.y - p7.height) {
+					MyGame.pressedDown = false;
+					wolf.playerCollision = true;
+					return true;
+				}
+			}
+		} //s
 		wolf.playerCollision = false;
 		return false;
 

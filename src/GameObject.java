@@ -13,6 +13,7 @@ public class GameObject {
 	Random rY;
 	Random rW;
 	Random rH;
+	
 
 	public GameObject(int x, int y, int width, int height) {
 		this.x = x;
@@ -21,13 +22,16 @@ public class GameObject {
 		this.height = height;
 		collisionBox = new Rectangle(x, y, width, height);
 	}
-
-	
-	public GameObject(Random random, Random random2, Random random3, Random random4) {
-		// TODO Auto-generated constructor stub
-		//*Was NEWLY created for randomPlatform generator*
+	//public GameObject(Random rX, Random rY, Random rW, Random rH) {
+		//int numX=rX.nextInt();
+		//int numY=rY.nextInt();
+		//int numW=rW.nextInt();
+		//int numH=rH.nextInt();
+		//collisionBox= new Rectangle(numX, numY, numW, numH);
 		
-	}
+	//}
+	
+	
 
 
 	public void update() {

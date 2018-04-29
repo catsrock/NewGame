@@ -13,9 +13,7 @@ public class Platform extends GameObject{
 	
 		
 	}
-	public void randomPlatform(Random rX, Random rY, Random rWidth, Random rHeight) {
-		
-	}
+
 	public void update() {
 		super.update();
 
