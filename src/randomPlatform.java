@@ -3,10 +3,11 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 //*This class was NEWLY created for randomPlatform generator*
-public class randomPlatform extends GameObject {
-	
-	public randomPlatform(int x, int y, int width, int height) {
-		super(x, y, width, height);
+public class randomPlatform  extends GameObject{
+
+	public randomPlatform(){
+		super();
+		System.out.println("spook");
 		// TODO Auto-generated constructor stub
 	}
 	public void update() {
@@ -16,7 +17,6 @@ public class randomPlatform extends GameObject {
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 	}
-	
 
 }
 

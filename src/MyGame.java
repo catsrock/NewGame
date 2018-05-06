@@ -142,11 +142,15 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
+	    	if(wolf.playerCollision==true) {
 	    if(pressedUp==true) {
 	   wolf.jump();
-	   
 	    	
 	    }
+	    	}
+	    	else {
+	    		pressedUp=false;
+	    	}
 	    if(pressedDown==true) {
 	    wolf.moveDown();
 	   // 	wolf.y+=5;
@@ -191,6 +195,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 				currentState=MENU_STATE;
 			}
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
+				
 				pressedUp=true;
 				
 			
@@ -216,9 +221,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			// TODO Auto-generated method stub
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
 				pressedUp=false;
-				
-					
-			}
+
+				}
 			if(e.getKeyCode()==KeyEvent.VK_LEFT) {
 				pressedLeft=false;
 					

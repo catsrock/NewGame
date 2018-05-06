@@ -9,29 +9,29 @@ import javax.swing.Timer;
 
 public class ObjectManager implements ActionListener {
 	ArrayList<GameObject> platform;
-	ArrayList<GameObject> randPlatform; //s
+	//ArrayList<GameObject> randPlatform; //s
 	Player wolf;
 	Random r=new Random();
 	int randomWidth=r.nextInt(61)+10;
 	int randomHeight=r.nextInt(16)+10;
 	long randomTime=0;
-	int waitTime=3000;
+	int waitTime=1000;
 	public ObjectManager(Player p1) {
 		platform = new ArrayList<GameObject>();
-		randPlatform=new ArrayList<GameObject>(); //s
+		//randPlatform=new ArrayList<GameObject>(); //s
 		wolf = p1;
 		//platformer.start();
 	}
 
-	public void addPlatform(GameObject p, Graphics g) {
+	public void addPlatform(GameObject p) {
 		platform.add(p);
-		randPlatform.add(p); //s
-		System.out.println("daflh");
+		//randPlatform.add(p); //s
 		// for (int i = 0; i < platform.size(); i++) {
 		// GameObject p3=platform.get(i);
 		// p3.draw(g);
 		// wolf.draw(g);
 		// }
+		 System.out.println("daflh");
 	}
 
 	public void update() {
@@ -39,33 +39,33 @@ public class ObjectManager implements ActionListener {
 			GameObject p4 = platform.get(i);
 			p4.update();
 		}
-		for (int i=0; i<randPlatform.size(); i++) { //s
-			GameObject p5=randPlatform.get(i); //s
-			p5.update(); //s
-		} //s
+		//for (int i=0; i<randPlatform.size(); i++) { //s
+		//	GameObject p5=randPlatform.get(i); //s
+		//	p5.update(); //s
+		//} //s
 		
 		wolf.update();
 	}
 
 	public void draw(GameObject p, Graphics g) {
-
 		wolf.draw(g);
 		System.out.println("runningoutofwords");
 		for (int i = 0; i < platform.size(); i++) {
 			GameObject p3 = platform.get(i);
 			p3.draw(g);
 		}
-		for (int i = 0; i < randPlatform.size(); i++) { //s
-			GameObject p6 = randPlatform.get(i); //s
-			p6.draw(g); //s
-		} //s
+		//for (int i = 0; i < randPlatform.size(); i++) { //s
+		//	GameObject p6 = randPlatform.get(i); //s
+		//	p6.draw(g); //s
+		//} //s
 
 	}
 	public void randomPlatforms() {
+		System.out.println(randomWidth+" ,"+randomHeight);
 		if(System.currentTimeMillis()-randomTime>=waitTime) {
-			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
-			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
-			randPlatform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
 		randomTime=System.currentTimeMillis();
 		
 		}
@@ -117,7 +117,6 @@ public class ObjectManager implements ActionListener {
 					return true;
 
 				}
-
 				// if(collisionY+playerHeight>p2.height && collisionX+playerWidth>=p2.width ) {
 
 				// }
@@ -127,20 +126,21 @@ public class ObjectManager implements ActionListener {
 			
 
 		}
-		for (int i = 0; i < randPlatform.size(); i++) { //s
-			GameObject p7 = randPlatform.get(i);
-			if (wolf.collisionBox.intersects(p7.collisionBox)) {
-				wolf.update();
-				if (wolf.collisionBox.intersects(p7.collisionBox)) {
-					wolf.setY(p7.getY() - wolf.height);
-				}
-				if (wolf.x + wolf.width >= p7.x - p7.width && wolf.y + wolf.height > p7.y - p7.height) {
-					MyGame.pressedDown = false;
-					wolf.playerCollision = true;
-					return true;
-				}
-			}
-		} //s
+		//for (int i = 0; i < randPlatform.size(); i++) { //s
+			//GameObject p7 = randPlatform.get(i);
+			//if (wolf.collisionBox.intersects(p7.collisionBox)) {
+			//	wolf.update();
+			//	if (wolf.collisionBox.intersects(p7.collisionBox)) {
+				//	wolf.setY(p7.getY() - wolf.height);
+				//}
+				//if (wolf.x + wolf.width >= p7.x - p7.width && wolf.y + wolf.height > p7.y - p7.height) {
+				//	MyGame.pressedDown = false;
+				//	wolf.playerCollision = true;
+				//	return true;
+				//}
+			//}
+		//} //s
+		
 		wolf.playerCollision = false;
 		return false;
 

@@ -9,10 +9,10 @@ public class GameObject {
 	int height;
 	boolean touchPlatform = true;
 	Rectangle collisionBox;
-	Random rX;
-	Random rY;
-	Random rW;
-	Random rH;
+	//Random rX;
+	//Random rY;
+	//Random rW;
+	//Random rH;
 	
 
 	public GameObject(int x, int y, int width, int height) {

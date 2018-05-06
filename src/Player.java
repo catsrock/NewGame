@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Player extends GameObject {
-	private int gravity = 9;
+	private int gravity = 3;
 	boolean playerCollision = false;
 	private int acceleration = 15;
 	private int tempX;
@@ -24,7 +24,7 @@ public class Player extends GameObject {
 		collisionBox.setBounds(tempX, tempY + 8, playerWidth, playerHeight);
 		if (playerCollision == false) {
 			// acceleration=0;
-
+			
 			x = tempX;
 			y = tempY;
 			tempY += gravity;
@@ -32,6 +32,7 @@ public class Player extends GameObject {
 			// acceleration--;
 
 		} else {
+			
 			tempY -= 1;
 			tempY -= gravity;
 			tempY += 1;
