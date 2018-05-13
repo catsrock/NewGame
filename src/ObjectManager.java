@@ -23,18 +23,20 @@ public class ObjectManager implements ActionListener {
 		//platformer.start();
 	}
 
-	public void addPlatform(GameObject p) {
+	public void addPlatform(GameObject p, Graphics g) {
 		platform.add(p);
 		//randPlatform.add(p); //s
+		System.out.println("daflh");
 		// for (int i = 0; i < platform.size(); i++) {
-		// GameObject p3=platform.get(i);
-		// p3.draw(g);
-		// wolf.draw(g);
-		// }
-		 System.out.println("daflh");
+		//GameObject p3=platform.get(i);
+		//p3.draw(g);
+		 //wolf.draw(g);
+		 //}
+		 
 	}
 
 	public void update() {
+		wolf.update();
 		for (int i = 0; i < platform.size(); i++) {
 			GameObject p4 = platform.get(i);
 			p4.update();
@@ -44,12 +46,12 @@ public class ObjectManager implements ActionListener {
 		//	p5.update(); //s
 		//} //s
 		
-		wolf.update();
+		
 	}
 
 	public void draw(GameObject p, Graphics g) {
 		wolf.draw(g);
-		System.out.println("runningoutofwords");
+		//System.out.println("runningoutofwords");
 		for (int i = 0; i < platform.size(); i++) {
 			GameObject p3 = platform.get(i);
 			p3.draw(g);
@@ -61,14 +63,17 @@ public class ObjectManager implements ActionListener {
 
 	}
 	public void randomPlatforms() {
-		System.out.println(randomWidth+" ,"+randomHeight);
+		System.out.println(randomWidth+", "+randomHeight);
 		if(System.currentTimeMillis()-randomTime>=waitTime) {
 			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
 			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
 			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+			platform.remove(0);
+			platform.remove(1);
 		randomTime=System.currentTimeMillis();
-		
+			
 		}
+		
 	}
 
 	public void setUpLevel() {
@@ -76,7 +81,6 @@ public class ObjectManager implements ActionListener {
 		platform.add(new Platform(1200, 680, 100, 25));
 		platform.add(new Platform(920, 925, 10, 25));
 		platform.add(new Platform(500, 500, 100, 25));
-		randomPlatforms();
 	}
 
 	// public void manageEnemies(){
@@ -97,8 +101,8 @@ public class ObjectManager implements ActionListener {
 			// System.out.println("feep");
 			if (wolf.collisionBox.intersects(p2.collisionBox)) {
 				// JOptionPane.showMessageDialog(null, "blup");
-
-				wolf.update();
+				
+				
 				// if(yHitbox.y>=p2.x-p2.width) {
 
 				// }

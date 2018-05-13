@@ -19,7 +19,7 @@ public class Platform extends GameObject{
 
 	}
 	public void draw(Graphics g) {
-		g.setColor(Color.YELLOW);
+		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 		
 	}

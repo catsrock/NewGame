@@ -18,8 +18,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		static boolean pressedDown=false;
 		private static boolean pressedRight=false;
 		private static boolean pressedLeft=false;
-		private int x=900;
-	    private int y=810;
+		private int x=900; //900
+	    private int y=810; //810
 	    static final int WIDTH=500;
 	    static final int HEIGHT=800;
 	    final int MENU_STATE = 0;
@@ -61,7 +61,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			} else if (currentState == GAME_STATE) {
 				if(stopPlatforms==false) {
 					
-					manager.setUpLevel();
+					
 					drawGameState(g);
 					stopPlatforms=true;
 					
@@ -81,7 +81,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		}
 
 		public void updateGameState() {
-			System.out.println("bai");
+			//System.out.println("bai");
 			manager.update();
 			//manager.manageEnemies();
 			manager.checkCollision();
@@ -142,6 +142,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    @Override
 	    public void actionPerformed(ActionEvent e)
 	    {
+	    	
 	    	if(wolf.playerCollision==true) {
 	    if(pressedUp==true) {
 	   wolf.jump();
@@ -170,6 +171,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
 			updateGameState();
+			manager.setUpLevel();
+			manager.randomPlatforms();
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
