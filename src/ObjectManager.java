@@ -23,7 +23,7 @@ public class ObjectManager implements ActionListener {
 		//platformer.start();
 	}
 
-	public void addPlatform(GameObject p, Graphics g) {
+	public void addPlatform(GameObject p) {
 		platform.add(p);
 		//randPlatform.add(p); //s
 		System.out.println("daflh");
@@ -41,17 +41,12 @@ public class ObjectManager implements ActionListener {
 			GameObject p4 = platform.get(i);
 			p4.update();
 		}
-		//for (int i=0; i<randPlatform.size(); i++) { //s
-		//	GameObject p5=randPlatform.get(i); //s
-		//	p5.update(); //s
-		//} //s
 		
 		
 	}
 
 	public void draw(GameObject p, Graphics g) {
 		wolf.draw(g);
-		//System.out.println("runningoutofwords");
 		for (int i = 0; i < platform.size(); i++) {
 			GameObject p3 = platform.get(i);
 			p3.draw(g);
@@ -81,6 +76,7 @@ public class ObjectManager implements ActionListener {
 		platform.add(new Platform(1200, 680, 100, 25));
 		platform.add(new Platform(920, 925, 10, 25));
 		platform.add(new Platform(500, 500, 100, 25));
+		System.out.println("meep");
 	}
 
 	// public void manageEnemies(){
@@ -91,7 +87,6 @@ public class ObjectManager implements ActionListener {
 	// }
 
 	public boolean checkCollision() {
-		System.out.println("boo");
 		for (int i = 0; i < platform.size(); i++) {
 
 			GameObject p2 = platform.get(i);

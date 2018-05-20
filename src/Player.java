@@ -32,8 +32,8 @@ public class Player extends GameObject {
 			// acceleration--;
 
 		} else {
-			//x=tempX; //added this because the hitbox was not being connected to the square
-		//	y=tempY; //look at previous line
+			x=tempX; //added this because the hitbox was not being connected to the square
+			y=tempY; //look at previous line
 			tempY -= 1;
 			tempY -= gravity;
 			tempY += 1;

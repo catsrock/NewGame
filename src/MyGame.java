@@ -35,7 +35,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	    static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	    private JFrame mainGameWindow = new JFrame("MyGame");//Makes window with title "MyGame"
-	    static boolean stopPlatforms=false;
+	    static boolean stopPlatforms=false; //this is supposed to make the platforms stop appearing
 	    private Timer paintTicker = new Timer(20, this); //Ticks every 20 milliseconds (50 times per second); calls on actionPerformed() when it ticks.
 	    Player wolf=new Player(x, y);
 	    ObjectManager manager=new ObjectManager(wolf);
@@ -58,29 +58,23 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	    	
 	        if (currentState == MENU_STATE) {
 				drawMenuState(g);
-			} else if (currentState == GAME_STATE) {
-				if(stopPlatforms==false) {
-					
-					
-					drawGameState(g);
-					stopPlatforms=true;
-					
-				}
-				else {
-					drawGameState(g);
-				}
-				
-			} else if (currentState == END_STATE) {
+			} 
+			else if (currentState == END_STATE) {
 				drawEndState(g);
 			}
+			else if(currentState==GAME_STATE) {
+				drawGameState(g);
+			}
+			} 
 			
 			
-		}
+		
 	    public void updateMenuState() {
 
 		}
 
 		public void updateGameState() {
+			
 			//System.out.println("bai");
 			manager.update();
 			//manager.manageEnemies();
@@ -108,12 +102,9 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		}
 
 		public void drawGameState(Graphics g) {
-			System.out.println("why notworking");
 			g.setColor(Color.black);
 			g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 			manager.draw(wolf, g);
-			
-			System.out.println("check");
 			//Platform p2=new Platform(1000, 710, 100, 25);
 			//p2.draw(g);
 			
@@ -167,15 +158,23 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	   // 	wolf.x+=5;
 	    	
 	    }
+	   
+	    
         if (currentState == MENU_STATE) {
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
 			updateGameState();
-			manager.setUpLevel();
-			manager.randomPlatforms();
+		//	manager.randomPlatforms();
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
+	    	if(stopPlatforms==true) {
+						}
+	    	else {
+	    		manager.setUpLevel();
+	    		manager.randomPlatforms();
+	    	}
+
 	    	
 	    		//System.out.println(x+" "+y);
 	    	//	floor.setRect(x+=1, y+=5, 100, 100);
