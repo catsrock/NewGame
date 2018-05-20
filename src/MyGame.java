@@ -164,15 +164,16 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			updateMenuState();
 		} else if (currentState == GAME_STATE) {
 			updateGameState();
-		//	manager.randomPlatforms();
+		//	manager.randomPlatforms(); was originally here, with setuplevel right above it
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
 	    	if(stopPlatforms==true) {
-						}
+			manager.randomPlatforms();
+			}
 	    	else {
 	    		manager.setUpLevel();
-	    		manager.randomPlatforms();
+	    		
 	    	}
 
 	    	
