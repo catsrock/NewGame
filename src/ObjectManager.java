@@ -25,6 +25,8 @@ public class ObjectManager implements ActionListener {
 
 	public void addPlatform(GameObject p) {
 		platform.add(p);
+		
+		
 		//randPlatform.add(p); //s
 		System.out.println("daflh");
 		// for (int i = 0; i < platform.size(); i++) {
@@ -57,27 +59,32 @@ public class ObjectManager implements ActionListener {
 		//} //s
 
 	}
+	
+	public void setUpLevel() {
+platform.add(new Platform(920, 925, 10, 25));
+platform.add(new Platform(920, 80, 100, 25));
+platform.add(new Platform(1200, 680, 100, 25));
+platform.add(new Platform(500, 500, 100, 25));
+		System.out.println("meep");
+	}
+	
 	public void randomPlatforms() {
 		System.out.println(randomWidth+", "+randomHeight);
 		if(System.currentTimeMillis()-randomTime>=waitTime) {
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
-			platform.remove(0);
-			platform.remove(1);
+		platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+		platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+		platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+		platform.add(new Platform(r.nextInt(MyGame.widthOfScreen-randomWidth), r.nextInt(MyGame.heightOfScreen-randomHeight), randomWidth, randomHeight));
+		platform.remove(2);
+		platform.remove(3);
+		platform.remove(4); //makes game harder, consider removing this line (haha)
 		randomTime=System.currentTimeMillis();
 			
 		}
 		
 	}
 
-	public void setUpLevel() {
-
-		platform.add(new Platform(1200, 680, 100, 25));
-		platform.add(new Platform(920, 925, 10, 25));
-		platform.add(new Platform(500, 500, 100, 25));
-		System.out.println("meep");
-	}
+	
 
 	// public void manageEnemies(){
 	// if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
