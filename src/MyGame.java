@@ -1,12 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -23,8 +21,9 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	static final int WIDTH = 500;
 	static final int HEIGHT = 800;
 	final int MENU_STATE = 0;
-	final int GAME_STATE = 1;
-	final int END_STATE = 2;
+	final int INSTRUCTION_STATE = 1;
+	final int GAME_STATE = 2;
+	final int END_STATE = 3;
 	int currentState = MENU_STATE;
 	Font titleFont;
 	Font startFont;
@@ -36,14 +35,14 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	private JFrame mainGameWindow = new JFrame("MyGame");// Makes window with title "MyGame"
 	static boolean stopPlatforms = false; // this is supposed to make the platforms stop appearing
-	static boolean setFixedPlatforms=false; //setting fixed platforms on the screen so they stay there
-	static boolean setUp=false; //checking if everything is setup?
-	
+	static boolean setFixedPlatforms = false; // setting fixed platforms on the screen so they stay there
+	static boolean setUp = false; // checking if everything is setup?
+	static long startTime;
 	private Timer paintTicker = new Timer(20, this); // Ticks every 20 milliseconds (50 times per second); calls on
 														// actionPerformed() when it ticks.
 	Player wolf = new Player(x, y);
 	ObjectManager manager = new ObjectManager(wolf);
-	
+
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new MyGame());
 	}
@@ -61,6 +60,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 		if (currentState == MENU_STATE) {
 			drawMenuState(g);
+		} else if (currentState == INSTRUCTION_STATE) {
+			drawInstructionState(g);
 		} else if (currentState == END_STATE) {
 			drawEndState(g);
 		} else if (currentState == GAME_STATE) {
@@ -69,6 +70,10 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	}
 
 	public void updateMenuState() {
+
+	}
+
+	public void updateInstructionState() {
 
 	}
 
@@ -87,18 +92,35 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 	public void drawMenuState(Graphics g) {
 		// manager.setScore(MENU_STATE);
+		g.setColor(Color.black);
+		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString("RIDDLE PIG", 930, 200);
+
+		g.setFont(startFont);
+		g.drawString("Press ENTER to start", 880, 300);
+
+		g.setFont(instructionFont);
+		g.drawString("Press SPACE for instructions", 890, 400);
+
+	}
+
+	public void drawInstructionState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 		g.setFont(titleFont);
 		g.setColor(Color.yellow);
-		g.drawString("RIDDLE PIG", 900, 200);
-
-		g.setFont(startFont);
-		g.drawString("Press ENTER to start", 870, 300);
-
+		g.drawString("WELCOME", 900, 200);
 		g.setFont(instructionFont);
-		g.drawString("Press SPACE for instructions", 900, 400);
-
+		g.drawString("Use arrow keys to navigate. You can use the up arrow, and left and right ones.", 700, 300);
+		g.drawString("WARNING! You can only jump when on a platform, and you can't jump very high.", 500, 400);
+		g.drawString(
+				"Be careful! The platforms only remain on the screen for a set amount of time. Your goal is to reach the platform at the top of the screen within five minutes.",
+				350, 500);
+		g.drawString("There are a couple fixed platforms on the screen to help you along the way.", 400, 550);
+		g.setFont(startFont);
+		g.drawString("GOOD LUCK! Press ENTER to start", 700, 700);
 	}
 
 	public void drawGameState(Graphics g) {
@@ -119,13 +141,14 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		g.setFont(gameOverFont);
 		g.setColor(Color.BLACK);
 		g.drawString("GAME OVER", 1000, 100);
-
-		g.setFont(numkilledFont);
 		// g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
 
-		g.setFont(backspaceFont);
-		g.drawString("Press BACKSPACE to Restart", 800, 500);
+	}
 
+	public void timeLimit() {
+		if (System.currentTimeMillis() - startTime >= 300000) {
+			currentState = END_STATE;
+		}
 	}
 
 	@Override
@@ -154,18 +177,22 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			// wolf.x+=5;
 
 		}
-		if(setUp==false) {
-		manager.setUpLevel();
+		if (setUp == false) {
+			manager.setUpLevel();
+			setUp = true;
+			startTime = System.currentTimeMillis();
 		}
-		setUp=true;
-		
+		if (currentState == GAME_STATE) {
+			timeLimit();
+		}
+
 		if (stopPlatforms == false) {
 			manager.randomPlatforms();
 		}
-		
-//		 else {
-	//		currentState = END_STATE;
-//		}
+
+		// else {
+		// currentState = END_STATE;
+		// }
 
 		if (currentState == MENU_STATE) {
 			updateMenuState();
@@ -175,7 +202,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			// manager.randomPlatforms(); was originally here, with setuplevel right above
 			// it
 		}
-
+		if (wolf.y > heightOfScreen) {
+			currentState = END_STATE;
+		}
+		// if (wolf.y >= 80) {
+		// currentState = END_STATE;
+		// }
 		else if (currentState == END_STATE) {
 
 			updateEndState();
@@ -200,7 +232,10 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			currentState++;
+			currentState = GAME_STATE;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			currentState = INSTRUCTION_STATE;
 		}
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
