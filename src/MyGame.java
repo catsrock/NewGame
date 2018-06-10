@@ -20,17 +20,18 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	private int y = 810; // 810
 	static final int WIDTH = 500;
 	static final int HEIGHT = 800;
-	final int MENU_STATE = 0;
+	static final int MENU_STATE = 0;
 	final int INSTRUCTION_STATE = 1;
 	final int GAME_STATE = 2;
 	final int END_STATE = 3;
-	int currentState = MENU_STATE;
+	static final int WIN_STATE = 4;
+	static int currentState = MENU_STATE;
 	Font titleFont;
 	Font startFont;
 	Font instructionFont;
 	Font gameOverFont;
-	Font numkilledFont;
 	Font backspaceFont;
+	Font winningFont;
 	static int widthOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
 	static int heightOfScreen = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
 	private JFrame mainGameWindow = new JFrame("MyGame");// Makes window with title "MyGame"
@@ -45,6 +46,16 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new MyGame());
+
+	}
+
+	public MyGame() {
+		titleFont = new Font("Arial", Font.PLAIN, 48);
+		startFont = new Font("Arial", Font.PLAIN, 24);
+		instructionFont = new Font("Arial", Font.PLAIN, 24);
+		gameOverFont = new Font("Arial", Font.PLAIN, 48);
+		backspaceFont = new Font("Arial", Font.PLAIN, 24);
+		winningFont = new Font("Arial", Font.CENTER_BASELINE, 48);
 	}
 
 	public void run() {
@@ -66,6 +77,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			drawEndState(g);
 		} else if (currentState == GAME_STATE) {
 			drawGameState(g);
+		} else if (currentState == WIN_STATE) {
+			drawWinState(g);
 		}
 	}
 
@@ -96,28 +109,28 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
-		g.drawString("RIDDLE PIG", 930, 200);
-
+		g.drawString("SPONTANEOUS", 780, 200);
+		g.setColor(Color.GRAY);
 		g.setFont(startFont);
-		g.drawString("Press ENTER to start", 880, 300);
-
+		g.drawString("Press ENTER to start", 855, 300);
+		g.setColor(Color.lightGray);
 		g.setFont(instructionFont);
-		g.drawString("Press SPACE for instructions", 890, 400);
+		g.drawString("Press SPACE for instructions", 820, 400);
 
 	}
 
 	public void drawInstructionState(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 		g.setFont(titleFont);
-		g.setColor(Color.yellow);
-		g.drawString("WELCOME", 900, 200);
+		g.setColor(Color.BLACK);
+		g.drawString("WELCOME", 840, 200);
 		g.setFont(instructionFont);
-		g.drawString("Use arrow keys to navigate. You can use the up arrow, and left and right ones.", 700, 300);
+		g.drawString("Use arrow keys to navigate. You can use the up arrow, and left and right ones.", 600, 300);
 		g.drawString("WARNING! You can only jump when on a platform, and you can't jump very high.", 500, 400);
 		g.drawString(
 				"Be careful! The platforms only remain on the screen for a set amount of time. Your goal is to reach the platform at the top of the screen within five minutes.",
-				350, 500);
+				250, 500);
 		g.drawString("There are a couple fixed platforms on the screen to help you along the way.", 400, 550);
 		g.setFont(startFont);
 		g.drawString("GOOD LUCK! Press ENTER to start", 700, 700);
@@ -127,6 +140,7 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		g.setColor(Color.black);
 		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 		manager.draw(wolf, g);
+		manager.drawWinPlatform(wolf, g);
 		// Platform p2=new Platform(1000, 710, 100, 25);
 		// p2.draw(g);
 
@@ -143,6 +157,14 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		g.drawString("GAME OVER", 1000, 100);
 		// g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
 
+	}
+
+	public void drawWinState(Graphics g) {
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		g.setFont(winningFont);
+		g.setColor(Color.white);
+		g.drawString("Congrats You Win", 750, 500);
 	}
 
 	public void timeLimit() {
@@ -177,18 +199,6 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 			// wolf.x+=5;
 
 		}
-		if (setUp == false) {
-			manager.setUpLevel();
-			setUp = true;
-			startTime = System.currentTimeMillis();
-		}
-		if (currentState == GAME_STATE) {
-			timeLimit();
-		}
-
-		if (stopPlatforms == false) {
-			manager.randomPlatforms();
-		}
 
 		// else {
 		// currentState = END_STATE;
@@ -196,23 +206,39 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 		if (currentState == MENU_STATE) {
 			updateMenuState();
-		} else if (currentState == GAME_STATE) {
-			updateGameState();
-
-			// manager.randomPlatforms(); was originally here, with setuplevel right above
-			// it
+		} else if (currentState == INSTRUCTION_STATE) {
+			updateInstructionState();
 		}
+
+		// else if (currentState == GAME_STATE) {
+		// updateGameState();
+
+		// manager.randomPlatforms(); was originally here, with setuplevel right above
+		// it
+		// }
+
+		if (currentState == GAME_STATE) {
+
+			if (setUp == false) {
+				manager.setUpLevel();
+				setUp = true;
+				startTime = System.currentTimeMillis();
+			}
+
+			if (stopPlatforms == false) {
+				manager.randomPlatforms();
+			}
+			timeLimit();
+			updateGameState();
+		}
+
 		if (wolf.y > heightOfScreen) {
 			currentState = END_STATE;
 		}
-		// if (wolf.y >= 80) {
-		// currentState = END_STATE;
-		// }
-		else if (currentState == END_STATE) {
 
+		else if (currentState == END_STATE) {
 			updateEndState();
 		}
-
 		// if(stopPlatforms==true) {
 
 		// }

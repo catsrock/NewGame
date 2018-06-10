@@ -41,6 +41,9 @@ public class GameObject {
 	public void draw(Graphics g) {
 
 	}
+	public void drawWinPlatform(Graphics g) {
+		
+	}
 
 	public int getY() {
 		return y;

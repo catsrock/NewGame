@@ -56,9 +56,16 @@ public class ObjectManager implements ActionListener {
 
 	}
 
+	public void drawWinPlatform(GameObject p, Graphics g) {
+
+		GameObject p6 = platform.get(1);
+		p6.drawWinPlatform(g);
+
+	}
+
 	public void setUpLevel() {
 		platform.add(new Platform(920, 925, 10, 25));
-		platform.add(new Platform(920, 60, 100, 25));
+		platform.add(new Platform(910, 60, 100, 25));
 		platform.add(new Platform(1200, 680, 100, 25));
 		platform.add(new Platform(500, 500, 100, 25));
 		System.out.println("meep");
@@ -95,7 +102,10 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < platform.size(); i++) {
 
 			GameObject p2 = platform.get(i);
-
+			GameObject p5 = platform.get(1);
+			if (wolf.collisionBox.intersects(p5.collisionBox)) {
+				MyGame.currentState = MyGame.WIN_STATE;
+			}
 			// collisionX=wolf.x;
 			// collisionY=wolf.y-1;
 			// System.out.println("feep");
