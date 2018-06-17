@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -42,6 +45,11 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	private Timer paintTicker = new Timer(20, this); // Ticks every 20 milliseconds (50 times per second); calls on
 														// actionPerformed() when it ticks.
 	Player wolf = new Player(x, y);
+	public static BufferedImage backgroundImg;
+	public static BufferedImage menuImg;
+	public static BufferedImage instructionImg;
+	public static BufferedImage gameOverImg;
+	public static BufferedImage winImg;
 	ObjectManager manager = new ObjectManager(wolf);
 
 	public static void main(String[] args) {
@@ -56,6 +64,16 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		gameOverFont = new Font("Arial", Font.PLAIN, 48);
 		backspaceFont = new Font("Arial", Font.PLAIN, 24);
 		winningFont = new Font("Arial", Font.CENTER_BASELINE, 48);
+		try{
+		backgroundImg=ImageIO.read(this.getClass().getResourceAsStream("background0.png"));
+		menuImg=ImageIO.read(this.getClass().getResourceAsStream("menu.png"));
+		instructionImg=ImageIO.read(this.getClass().getResourceAsStream("instruction.png"));
+		gameOverImg=ImageIO.read(this.getClass().getResourceAsStream("gameOver.png"));
+		winImg=ImageIO.read(this.getClass().getResourceAsStream("win.png"));
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	public void run() {
@@ -105,8 +123,9 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 
 	public void drawMenuState(Graphics g) {
 		// manager.setScore(MENU_STATE);
-		g.setColor(Color.black);
-		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		//g.setColor(Color.black);
+		//g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		g.drawImage(menuImg, 0, 0, widthOfScreen, heightOfScreen, null);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
 		g.drawString("SPONTANEOUS", 780, 200);
@@ -120,25 +139,28 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	}
 
 	public void drawInstructionState(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		//g.setColor(Color.WHITE);
+		//g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		g.drawImage(instructionImg, 0, 0, widthOfScreen, heightOfScreen, null);
 		g.setFont(titleFont);
 		g.setColor(Color.BLACK);
 		g.drawString("WELCOME", 840, 200);
 		g.setFont(instructionFont);
-		g.drawString("Use arrow keys to navigate. You can use the up arrow, and left and right ones.", 600, 300);
-		g.drawString("WARNING! You can only jump when on a platform, and you can't jump very high.", 500, 400);
+		g.drawString("Use arrow keys to navigate. You can use the up arrow, and left and right ones.", 570, 300);
+		g.drawString("WARNING! You can only jump when on a platform, and you can't jump very high.", 550, 400);
 		g.drawString(
-				"Be careful! The platforms only remain on the screen for a set amount of time. Your goal is to reach the platform at the top of the screen within five minutes.",
-				250, 500);
-		g.drawString("There are a couple fixed platforms on the screen to help you along the way.", 400, 550);
+				"Be careful! The platforms only remain on the screen for a set amount of time. ",
+				570, 450);
+		g.drawString("Your goal is to reach the red platform at the top of the screen within five minutes.", 550, 550);
+		g.drawString("There are a couple fixed platforms on the screen to help you along the way.", 550, 600);
 		g.setFont(startFont);
-		g.drawString("GOOD LUCK! Press ENTER to start", 700, 700);
+		g.drawString("GOOD LUCK! Press ENTER to start", 750, 700);
 	}
 
 	public void drawGameState(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		//g.setColor(Color.black);
+		g.drawImage(backgroundImg, 0, 0, widthOfScreen, heightOfScreen, null);
+		//g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
 		manager.draw(wolf, g);
 		manager.drawWinPlatform(wolf, g);
 		// Platform p2=new Platform(1000, 710, 100, 25);
@@ -150,11 +172,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	}
 
 	public void drawEndState(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		//g.setColor(Color.red);
+		//g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		g.drawImage(gameOverImg, 0, 0, widthOfScreen, heightOfScreen, null);
 		g.setFont(gameOverFont);
 		g.setColor(Color.BLACK);
-		g.drawString("GAME OVER", 1000, 100);
+		g.drawString("GAME OVER", 800, 450);
 		// g.drawString("You killed " + manager.getScore() + " aliens.", 150, 300);
 
 	}
