@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 public class Player extends GameObject {
 	private int gravity = 3;
 	boolean playerCollision = false;
-	private int acceleration = 15;
+	private int acceleration = 30;
 	private int tempX;
 	// int tempX;
 	private int tempY;
@@ -58,15 +58,14 @@ public class Player extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		g.setColor(Color.RED);
-		g.fillRect(x, y, playerWidth, playerHeight);
-		g2.setColor(Color.BLUE);
-		g2.draw(collisionBox);
+		g.drawImage(MyGame.playerImg, x, y, playerWidth, playerHeight, null);
+		//g.setColor(Color.RED);
+		//g.fillRect(x, y, playerWidth, playerHeight);
+		
 	}
 
 	public void jump() {
-		acceleration = 15;
+		acceleration = 40;
 		this.tempY -= acceleration;
 		// this.y-=acceleration;
 		acceleration--;

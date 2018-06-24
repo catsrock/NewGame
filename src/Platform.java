@@ -24,7 +24,7 @@ public class Platform extends GameObject {
 	}
 
 	public void drawWinPlatform(Graphics g) {
-		if (x == 910 && y == 60) {
+		if (x == 910 && y == 60) { 
 			g.setColor(Color.red);
 			g.fillRect(x, y, width, height);
 		} else {

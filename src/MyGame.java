@@ -49,7 +49,8 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 	public static BufferedImage menuImg;
 	public static BufferedImage instructionImg;
 	public static BufferedImage gameOverImg;
-	public static BufferedImage winImg;
+	public static BufferedImage playerImg;
+	public static BufferedImage topPlatImg;
 	ObjectManager manager = new ObjectManager(wolf);
 
 	public static void main(String[] args) {
@@ -65,11 +66,12 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		backspaceFont = new Font("Arial", Font.PLAIN, 24);
 		winningFont = new Font("Arial", Font.CENTER_BASELINE, 48);
 		try{
-		backgroundImg=ImageIO.read(this.getClass().getResourceAsStream("background0.png"));
+		backgroundImg=ImageIO.read(this.getClass().getResourceAsStream("background0.png")); //background0
 		menuImg=ImageIO.read(this.getClass().getResourceAsStream("menu.png"));
 		instructionImg=ImageIO.read(this.getClass().getResourceAsStream("instruction.png"));
 		gameOverImg=ImageIO.read(this.getClass().getResourceAsStream("gameOver.png"));
-		winImg=ImageIO.read(this.getClass().getResourceAsStream("win.png"));
+		playerImg=ImageIO.read(this.getClass().getResourceAsStream("player.png"));
+		topPlatImg=ImageIO.read(this.getClass().getResource("topPlat.png"));
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -161,8 +163,10 @@ public class MyGame extends JComponent implements ActionListener, Runnable, KeyL
 		//g.setColor(Color.black);
 		g.drawImage(backgroundImg, 0, 0, widthOfScreen, heightOfScreen, null);
 		//g.fillRect(0, 0, MyGame.widthOfScreen, MyGame.heightOfScreen);
+		
 		manager.draw(wolf, g);
-		manager.drawWinPlatform(wolf, g);
+		g.drawImage(topPlatImg, 910, 60, 100, 25, null);
+		// bombomanom manager.drawWinPlatform(wolf, g);
 		// Platform p2=new Platform(1000, 710, 100, 25);
 		// p2.draw(g);
 

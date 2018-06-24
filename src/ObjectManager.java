@@ -57,8 +57,9 @@ public class ObjectManager implements ActionListener {
 	}
 
 	public void drawWinPlatform(GameObject p, Graphics g) {
-
+		
 		GameObject p6 = platform.get(1);
+		
 		p6.drawWinPlatform(g);
 
 	}
@@ -72,8 +73,10 @@ public class ObjectManager implements ActionListener {
 	}
 
 	public void randomPlatforms() {
-		System.out.println(randomWidth + ", " + randomHeight);
+		if(MyGame.heightOfScreen-randomHeight<60) {
+			System.out.println(randomWidth + ", " + randomHeight);
 		if (System.currentTimeMillis() - randomTime >= waitTime) {
+			
 			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
 					r.nextInt(MyGame.heightOfScreen - randomHeight), randomWidth, randomHeight));
 			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
@@ -86,7 +89,7 @@ public class ObjectManager implements ActionListener {
 			platform.remove(4);
 			platform.remove(5); // makes game harder, consider removing this line (haha)
 			randomTime = System.currentTimeMillis();
-
+			}
 		}
 
 	}
