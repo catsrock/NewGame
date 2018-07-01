@@ -11,6 +11,7 @@ public class ObjectManager implements ActionListener {
 	Random r = new Random();
 	int randomWidth = r.nextInt(61) + 10;
 	int randomHeight = r.nextInt(16) + 10;
+	int randPlatY = r.nextInt((MyGame.heightOfScreen - 50) - 934) + 935;
 	long randomTime = 0;
 	int waitTime = 1000;
 
@@ -57,9 +58,9 @@ public class ObjectManager implements ActionListener {
 	}
 
 	public void drawWinPlatform(GameObject p, Graphics g) {
-		
+
 		GameObject p6 = platform.get(1);
-		
+
 		p6.drawWinPlatform(g);
 
 	}
@@ -73,25 +74,23 @@ public class ObjectManager implements ActionListener {
 	}
 
 	public void randomPlatforms() {
-		if(MyGame.heightOfScreen-randomHeight<60) {
-			System.out.println(randomWidth + ", " + randomHeight);
+
+		System.out.println(randomWidth + ", " + randomHeight);
 		if (System.currentTimeMillis() - randomTime >= waitTime) {
-			
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
-					r.nextInt(MyGame.heightOfScreen - randomHeight), randomWidth, randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
-					r.nextInt(MyGame.heightOfScreen - randomHeight), randomWidth, randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
-					r.nextInt(MyGame.heightOfScreen - randomHeight), randomWidth, randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth),
-					r.nextInt(MyGame.heightOfScreen - randomHeight), randomWidth, randomHeight));
+
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,
+					randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
+					randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
+					randomHeight));
+			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
+					randomHeight));
 			platform.remove(3);
 			platform.remove(4);
 			platform.remove(5); // makes game harder, consider removing this line (haha)
 			randomTime = System.currentTimeMillis();
-			}
 		}
-
 	}
 
 	// public void manageEnemies(){
