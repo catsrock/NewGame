@@ -11,7 +11,7 @@ public class ObjectManager implements ActionListener {
 	Random r = new Random();
 	int randomWidth = r.nextInt(61) + 10;
 	int randomHeight = r.nextInt(16) + 10;
-	int randPlatY = r.nextInt((MyGame.heightOfScreen - 50) - 934) + 935;
+	 //r.nextInt((MyGame.heightOfScreen - 50) - 934) + 935;
 	long randomTime = 0;
 	int waitTime = 1000;
 
@@ -74,21 +74,31 @@ public class ObjectManager implements ActionListener {
 	}
 
 	public void randomPlatforms() {
-
-		System.out.println(randomWidth + ", " + randomHeight);
+		
+		
 		if (System.currentTimeMillis() - randomTime >= waitTime) {
-
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,
+			for (int i = 0; i < 4; i++) {
+				int randPlatY = r.nextInt((MyGame.heightOfScreen-80)+1)+80;
+				platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,
 					randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
-					randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
-					randomHeight));
-			platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), r.nextInt(randPlatY), randomWidth,
-					randomHeight));
-			platform.remove(3);
-			platform.remove(4);
-			platform.remove(5); // makes game harder, consider removing this line (haha)
+System.out.println(randomWidth + ", " + randomHeight+", "+randPlatY);
+			}
+			for (int i = 0; i < 2; i++) {
+				platform.remove(3);
+			}
+			
+				
+				
+				
+			
+			 // makes game harder, consider removing this line (haha)
+			//platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,	randomHeight));
+				//platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,	randomHeight));
+		//	platform.add(new Platform(r.nextInt(MyGame.widthOfScreen - randomWidth), randPlatY, randomWidth,
+			//		randomHeight));
+		//	platform.remove(4);
+			//platform.remove(5);
+				//
 			randomTime = System.currentTimeMillis();
 		}
 	}
